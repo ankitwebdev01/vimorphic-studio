@@ -12,7 +12,7 @@ import brand1 from "@/assets/brand-1.jpg.asset.json";
 import video1 from "@/assets/video-1.jpg.asset.json";
 
 export const INSTAGRAM = "https://instagram.com/vimorphic.designs";
-export const EMAIL = "ankibhai698@gmail.com";
+export const EMAIL = "ankitanandx@gmail.com";
 
 export type Project = {
   title: string;
