@@ -236,3 +236,20 @@
     transform: translateY(-14px) scale(1.028);
   }
 }
+
+@keyframes floaty {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -14px;
+  }
+}
+
+@utility note-3d {
+  transform-style: preserve-3d;
+  box-shadow:
+    0 26px 50px -18px oklch(0 0 0 / 0.75),
+    0 8px 18px -8px oklch(0.58 0.23 26 / 0.6);
+}

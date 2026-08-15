@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as VmConsole9f3xRouteImport } from './routes/vm-console-9f3x'
 import { Route as WorksRouteImport } from './routes/works'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VmConsole9f3xRoute = VmConsole9f3xRouteImport.update({
+  id: '/vm-console-9f3x',
+  path: '/vm-console-9f3x',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorksRoute = WorksRouteImport.update({
   id: '/works',
   path: '/works',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/vm-console-9f3x': typeof VmConsole9f3xRoute
   '/works': typeof WorksRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/vm-console-9f3x': typeof VmConsole9f3xRoute
   '/works': typeof WorksRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,23 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/vm-console-9f3x': typeof VmConsole9f3xRoute
   '/works': typeof WorksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/services' | '/works'
+  fullPaths:
+    '/' | '/about' | '/contact' | '/services' | '/vm-console-9f3x' | '/works'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/services' | '/works'
-  id: '__root__' | '/' | '/about' | '/contact' | '/services' | '/works'
+  to: '/' | '/about' | '/contact' | '/services' | '/vm-console-9f3x' | '/works'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/services'
+    | '/vm-console-9f3x'
+    | '/works'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +93,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   ServicesRoute: typeof ServicesRoute
+  VmConsole9f3xRoute: typeof VmConsole9f3xRoute
   WorksRoute: typeof WorksRoute
 }
 
@@ -109,6 +127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vm-console-9f3x': {
+      id: '/vm-console-9f3x'
+      path: '/vm-console-9f3x'
+      fullPath: '/vm-console-9f3x'
+      preLoaderRoute: typeof VmConsole9f3xRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/works': {
       id: '/works'
       path: '/works'
@@ -124,6 +149,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   ServicesRoute: ServicesRoute,
+  VmConsole9f3xRoute: VmConsole9f3xRoute,
   WorksRoute: WorksRoute,
 }
 export const routeTree = rootRouteImport

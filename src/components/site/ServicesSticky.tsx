@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { ParticleField } from "./ParticleField";
 import { services } from "@/data/site";
 
 function Note({ i, total, progress }: { i: number; total: number; progress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
@@ -13,8 +14,15 @@ function Note({ i, total, progress }: { i: number; total: number; progress: Retu
 
   return (
     <motion.article
-      style={{ y, opacity, rotate }}
-      className="w-[15rem] shrink-0 rounded-sm bg-primary p-5 text-primary-foreground red-glow sm:w-[17rem] md:w-[19rem]"
+      style={{
+        y,
+        opacity,
+        rotate,
+        rotateX: -8,
+        rotateY: i % 2 === 0 ? 9 : -9,
+        transformPerspective: 1000,
+      }}
+      className="note-3d w-[15rem] shrink-0 rounded-sm bg-primary p-5 text-primary-foreground transition-transform duration-300 hover:-translate-y-3 sm:w-[17rem] md:w-[19rem]"
     >
       <span className="font-display text-xs tracking-[0.3em] opacity-70">{s.n}</span>
       <h3 className="mt-3 font-display text-2xl uppercase leading-none md:text-3xl">{s.title}</h3>
@@ -33,6 +41,7 @@ export function ServicesSticky() {
   return (
     <section ref={ref} id="services" className="relative h-[420vh]">
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5">
+        <ParticleField density={45} />
         <motion.h2
           style={{ y: headY, opacity: headOpacity }}
           className="max-w-4xl text-center font-display text-4xl uppercase leading-[0.95] sm:text-6xl md:text-7xl"

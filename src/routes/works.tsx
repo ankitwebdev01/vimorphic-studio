@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
+import { track } from "@/lib/analytics";
 import { brandIdentityWorks, projects } from "@/data/site";
 
 export const Route = createFileRoute("/works")({
@@ -33,21 +35,27 @@ const webSolutions = [
 ];
 
 function WorksPage() {
+  useEffect(() => {
+    track("worksViews");
+  }, []);
+
   return (
     <main className="pt-32">
-      <section className="mx-auto max-w-7xl px-5 pb-16">
+      <section className="mx-auto max-w-7xl px-5 pb-24">
         <p className="text-xs uppercase tracking-[0.3em] text-primary">— Portfolio</p>
-        <h1 className="mt-4 font-display text-5xl uppercase leading-[0.9] sm:text-7xl md:text-8xl">
+        <h1 className="mt-4 font-display text-6xl uppercase leading-[0.9] sm:text-8xl md:text-[7rem]">
           The <span className="text-primary">Work</span>
         </h1>
         <p className="mt-6 max-w-xl text-muted-foreground">
           Two halves of one studio: Brand Identity for attention, Web Solutions for conversion.
         </p>
+        <div className="mt-10 h-px w-full bg-border" />
       </section>
 
-      <section id="brand-identity" className="mx-auto max-w-7xl px-5 py-16">
+      <section id="brand-identity" className="mx-auto max-w-7xl px-5 pb-16">
         <ScrollReveal>
-          <h2 className="font-display text-3xl uppercase sm:text-5xl">
+          <span className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Part 01</span>
+          <h2 className="mt-2 font-display text-2xl uppercase sm:text-4xl">
             Brand <span className="text-primary">Identity</span>
           </h2>
           <p className="mt-3 text-sm uppercase tracking-[0.2em] text-muted-foreground">
@@ -88,7 +96,8 @@ function WorksPage() {
 
       <section id="web-solutions" className="mx-auto max-w-7xl px-5 py-24">
         <ScrollReveal>
-          <h2 className="font-display text-3xl uppercase sm:text-5xl">
+          <span className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Part 02</span>
+          <h2 className="mt-2 font-display text-2xl uppercase sm:text-4xl">
             Web <span className="text-primary">Solutions</span>
           </h2>
           <p className="mt-3 text-sm uppercase tracking-[0.2em] text-muted-foreground">
