@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Hero } from "@/components/site/Hero";
 import { ServicesSticky } from "@/components/site/ServicesSticky";
@@ -6,6 +7,9 @@ import { Reviews } from "@/components/site/Reviews";
 import { Faq } from "@/components/site/Faq";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { MagneticButton } from "@/components/site/MagneticButton";
+import { IdCard } from "@/components/site/IdCard";
+import { ParticleField } from "@/components/site/ParticleField";
+import { track } from "@/lib/analytics";
 import { INSTAGRAM, projects } from "@/data/site";
 
 export const Route = createFileRoute("/")({
@@ -64,12 +68,23 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(() => {
+    track("visits");
+  }, []);
+
+  const featured = projects.filter((p) =>
+    ["Volta Drink", "Scroll Story Arc", "Estate 01"].includes(p.title),
+  );
+
   return (
     <main>
       <Hero />
+      <IdCard />
 
       {/* Latest projects */}
-      <section id="work" className="mx-auto max-w-7xl px-5 py-28">
+      <section id="work" className="relative overflow-hidden px-5 py-28">
+        <ParticleField density={40} />
+        <div className="relative mx-auto max-w-7xl">
         <ScrollReveal>
           <p className="text-xs uppercase tracking-[0.3em] text-primary">— Selected Builds</p>
           <h2 className="mt-4 font-display text-4xl uppercase sm:text-6xl md:text-7xl">
@@ -78,12 +93,13 @@ function Index() {
         </ScrollReveal>
 
         <div className="mt-16 grid gap-8 md:grid-cols-2">
-          {projects.map((p) => (
+          {featured.map((p) => (
             <ScrollReveal key={p.url} distance={110}>
               <a
                 href={p.url}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => track("interested")}
                 className="group block overflow-hidden rounded-3xl border border-border bg-card transition-colors hover:border-primary/60"
               >
                 <div className="overflow-hidden">
@@ -107,13 +123,11 @@ function Index() {
           ))}
         </div>
 
-        <div className="mt-14">
-          <Link
-            to="/works"
-            className="inline-flex items-center gap-2 rounded-full border border-primary px-7 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-          >
-            View all works <ArrowUpRight className="size-4" />
-          </Link>
+        <div className="mt-10">
+          <MagneticButton href="/works" variant="outline">
+            View All Works <ArrowUpRight className="size-4" />
+          </MagneticButton>
+        </div>
         </div>
       </section>
 
@@ -124,13 +138,16 @@ function Index() {
       <Faq />
 
       {/* Closing CTA */}
-      <section className="mx-auto max-w-5xl px-5 py-32 text-center">
+      <section className="relative overflow-hidden px-5 py-32 text-center">
+        <ParticleField density={40} />
         <ScrollReveal distance={180}>
+          <div className="relative mx-auto max-w-5xl">
           <h2 className="font-display text-4xl uppercase leading-[0.95] sm:text-6xl md:text-7xl">
             Let's Build Something <span className="text-primary">Vimorphic</span> Together
           </h2>
           <div className="mt-12 flex justify-center">
             <MagneticButton href={INSTAGRAM}>Book A Call</MagneticButton>
+          </div>
           </div>
         </ScrollReveal>
       </section>
@@ -141,6 +158,9 @@ function Index() {
           Mr. Ankit <span className="text-outline">Anand</span>
         </p>
       </section>
+
+      {/* Never-ending loop: the hero re-assembles so the journey can start again */}
+      <Hero loop />
     </main>
   );
 }

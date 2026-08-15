@@ -15,6 +15,7 @@ import { SiteNav } from "@/components/site/SiteNav";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { CursorFX } from "@/components/site/CursorFX";
 import { SpeakToMe } from "@/components/site/SpeakToMe";
+import { Loader } from "@/components/site/Loader";
 
 function NotFoundComponent() {
   return (
@@ -144,6 +145,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Loader />
       <CursorFX />
       <SiteNav />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}

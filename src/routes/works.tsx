@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
+import { track } from "@/lib/analytics";
 import { brandIdentityWorks, projects } from "@/data/site";
 
 export const Route = createFileRoute("/works")({
@@ -33,6 +35,10 @@ const webSolutions = [
 ];
 
 function WorksPage() {
+  useEffect(() => {
+    track("worksViews");
+  }, []);
+
   return (
     <main className="pt-32">
       <section className="mx-auto max-w-7xl px-5 pb-24">
